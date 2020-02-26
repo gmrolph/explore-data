@@ -11,18 +11,26 @@ library(janitor)
 ```
 
 ```{r}
-MA_SAT_18_19 <- read_excel("sat_performance.xlsx",
+MA_SAT_18_19 <- read_excel("sat_performance.xlsx", 
+                        col_types = c("text", "numeric",
+                                      "numeric", "numeric",
+                                      "logical", "numeric"),
                         skip = 1) %>% 
-  clean_names() 
+  clean_names()
 
 MA_PPE_18 <- read_excel("PerPupilExpenditures.xlsx",
+                        col_types = c("text", "numeric",
+                                      "text", "text",
+                                      "text", "text",
+                                      "text", "text",
+                                      "logical"),
                         skip = 1) %>% 
   clean_names() %>% 
-  select(-x9) 
+  select(-x9)
 ```
 
 ```{r}
-MA_SAT_18_19 %>% 
+mass_joined <- MA_SAT_18_19 %>% 
   full_join(MA_PPE_18, by = c("district_name" = "district_name",
                               "district_code" = "district_code"))
 ```
