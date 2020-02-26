@@ -1,0 +1,29 @@
+---
+title: "explore-data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readxl)
+library(janitor)
+```
+
+```{r}
+MA_SAT_18_19 <- read_excel("sat_performance.xlsx",
+                        skip = 1) %>% 
+  clean_names() 
+
+MA_PPE_18 <- read_excel("PerPupilExpenditures.xlsx",
+                        skip = 1) %>% 
+  clean_names() %>% 
+  select(-x9) 
+```
+
+```{r}
+MA_SAT_18_19 %>% 
+  full_join(MA_PPE_18, by = c("district_name" = "district_name",
+                              "district_code" = "district_code"))
+```
+
