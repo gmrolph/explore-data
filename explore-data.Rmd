@@ -20,13 +20,19 @@ MA_SAT_18_19 <- read_excel("sat_performance.xlsx",
 
 MA_PPE_18 <- read_excel("PerPupilExpenditures.xlsx",
                         col_types = c("text", "numeric",
-                                      "text", "text",
+                                      "numeric", "text",
                                       "text", "text",
                                       "text", "text",
                                       "logical"),
                         skip = 1) %>% 
   clean_names() %>% 
   select(-x9)
+
+mass_staff_demographics <- read_excel("staffracegender.xlsx",
+                                      skip = 1) %>% 
+  View()
+
+mass_salaries <- read_excel("TeacherSalaries.xlsx")
 ```
 
 ```{r}
@@ -35,3 +41,16 @@ mass_joined <- MA_SAT_18_19 %>%
                               "district_code" = "district_code"))
 ```
 
+```{r}
+mass_joined %>% 
+  arrange(desc(in_district_expenditures)) %>% 
+  View()
+```
+
+
+```{r}
+mass_joined %>% 
+  filter(district_name == "Andover") %>% 
+  summary()
+```
+ 
