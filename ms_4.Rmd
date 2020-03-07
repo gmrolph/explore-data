@@ -58,7 +58,20 @@ ga_demographics <- read_csv("FTE Enrollment by Race_Ethnicity and Gender Fiscal 
 I was also able to find data from Florida that included ACT scores by district as well as teacher salaries in addition to salaries from each of the 75 districts in Florida. For next week, I plan to do much the same but hopefully I can have this work done for 5 states since if I only worked with 2 states per week I wouldn't have all 50 done by the time Demo Days comes around. 
 
 ```{r Florida, include = FALSE}
-FL_ACT <- read_excel("2017ACTSchool.xlsx", skip = 2)
-FL_teachersalaries <- read_excel("1819TeacherSalaryData.xlsx", skip = 2)
-FL_districtsalaries <- read_excel("1819FLDistStSalaries.xlsx", skip = 2)
+FL_ACT <- read_excel("2017ACTSchool.xlsx", skip = 2) %>% 
+  clean_names()
+FL_teachersalaries <- read_excel("1819TeacherSalaryData.xlsx", skip = 2) %>% 
+  clean_names()
+FL_districtsalaries <- read_excel("1819FLDistStSalaries.xlsx", skip = 2) %>% 
+  clean_names()
 ```
+
+```{r Alabama, include = FALSE}
+AL_grades <- read_excel("2018-2019 Report Card Profile.xlsx", skip = 4) %>% 
+  clean_names()
+
+## Not sure if I'm gonna be able to find data for demographics or school
+## spending for Alabama, but I can keep looking at least for a little while
+## longer.
+```
+
