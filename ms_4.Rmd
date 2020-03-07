@@ -72,6 +72,6 @@ AL_grades <- read_excel("2018-2019 Report Card Profile.xlsx", skip = 4) %>%
 
 ## Not sure if I'm gonna be able to find data for demographics or school
 ## spending for Alabama, but I can keep looking at least for a little while
-## longer.
+## longer
 ```
 
