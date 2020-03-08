@@ -75,3 +75,22 @@ AL_grades <- read_excel("2018-2019 Report Card Profile.xlsx", skip = 4) %>%
 ## longer
 ```
 
+Here I have also included South Carolina, as well as a little bit of data on Alabama's education systems
+
+```{r South Carolina, include = FALSE}
+SC_ACT <- read_excel("SAT2019_Schoolsfinal.xlsx", skip = 2) %>% 
+  clean_names()
+SC_SAT <- read_excel("ACT-Schools2019.xlsx", skip = 1) %>% 
+  clean_names()
+
+## The SC_expenditures needs to be fixed, and I think I'd like to pivot the
+## columns and rows around. I don't know what has to be done exactly, but they
+## have 100 school districts in each column and I would definitely get more
+## utility out of having them in rows instead so I could join on the rows.
+
+SC_expenditures <- read_excel("Expenditure FY 2017-2018.xlsx")%>% 
+  clean_names()
+SC_teacher_demos <- read_excel("SOUTH CAROLINA TEACHERS BY RACE AND GENDER 2015-16.xlsx")  %>% 
+  clean_names()
+```
+
