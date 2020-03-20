@@ -12,6 +12,7 @@ library(tidyverse)
 library(readxl)
 library(janitor)
 library(ggplot2)
+library(haven)
 ```
 The purpose of this project is to analyze the differences in educational outcome between students in different educational circumstances across the country. I plan to include data from as many of the 50 states as I can access, though some states are much more restrictive than others. Below, I have selected some data that was readily available to me on the Massachusetts Department of Education Website. Included is data detailing SAT performance by school district, per pupil expenditures by school district, and staff demographics by school district. 
 ```{r Massachusetts, include = FALSE}
@@ -76,7 +77,7 @@ AL_grades <- read_excel("2018-2019 Report Card Profile.xlsx", skip = 4) %>%
 ## longer
 ```
 
-Here I have also included South Carolina, as well as a little bit of data on Alabama's education systems
+Here I have also included South Carolina, as well as a little bit of data on Alabama's education systems. 
 
 ```{r South Carolina, include = FALSE}
 SC_ACT <- read_excel("SAT2019_Schoolsfinal.xlsx", skip = 2) %>% 
@@ -95,6 +96,8 @@ SC_teacher_demos <- read_excel("SOUTH CAROLINA TEACHERS BY RACE AND GENDER 2015-
   clean_names()
 ```
 
+Below, I have included data from California as well as from Colorado. I was able to obtain extensive data from Colorado, so I played around with it a little bit in the graphs below. Obviously, these graphs aren't very visually useful at this point, but I spent a lot of time trying to find the data in the first place and was not able to dedicate as much time to the graphs themselves. Again though, these won't be the final graphs by any stretch of the imagination so I will keep working on them throughout the week and do more work on finding data from other states as well.
+
 ```{r}
 CA_data <- read_excel("pubschls.xlsx", skip = 5) %>% 
   clean_names()
@@ -102,8 +105,7 @@ CA_data <- read_excel("pubschls.xlsx", skip = 5) %>%
 
 ```{r Colorado, message = FALSE}
 CO_SAT <- read_excel("States/Colorado/2019 PSAT and SAT Disaggregated District and School Achievement Results.xlsx", skip = 10) %>% 
-  clean_names() %>% 
-  filter(test == "SAT", !gender == "Not Reported")
+  clean_names()
 
 CO_agg_SAT <- read_excel("States/Colorado/2019 PSAT SAT District and School Achievement Results.xlsx", skip = 10) %>% 
   clean_names()
@@ -129,18 +131,20 @@ CO_teacher_demos <- read_excel("States/Colorado/2018-19 Teachers by District, Ra
   clean_names() 
 ```
 
-
 ```{r CO score vs. teacher salary}
   CO_SAT_sals <- inner_join(CO_SAT, CO_teacher_sals, 
                             by = c("district_name" = "district_name")) %>% 
-  rename("average_total_salary" = "x8")
+  rename("average_total_salary" = "x8") %>% 
+  filter(!number_of_valid_scores == "< 16")
 ```
 
 ```{r}
-CO_SAT_sals %>% 
-  ggplot(aes(average_total_salary, total_score_mean_score, color = district_name)) + geom_point()
+CO_SAT_sals %>%
+  filter(gender == "Female") %>% 
+  ggplot(aes(district_name, participation_rate)) + geom_point() +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
-
 
 ```{r}
 CO_SAT_sals %>% 
@@ -149,7 +153,3 @@ CO_SAT_sals %>%
   ggplot(aes(average_total_salary, mathematics_mean_score)) +
                          geom_point()
 ```
-
-```{r}
-CO_SAT_sals %>% 
-  ggplot(aes(average_total_salary, total_score_mean_score)) + geom_col() 
