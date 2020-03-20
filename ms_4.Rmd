@@ -94,3 +94,37 @@ SC_teacher_demos <- read_excel("SOUTH CAROLINA TEACHERS BY RACE AND GENDER 2015-
   clean_names()
 ```
 
+```{r}
+CA_data <- read_excel("pubschls.xlsx", skip = 5) %>% 
+  clean_names() %>% 
+  View()
+```
+
+```{r Colorado, message = FALSE}
+CO_SAT <- read_excel("States/Colorado/2019 PSAT and SAT Disaggregated District and School Achievement Results.xlsx", skip = 10) %>% 
+  clean_names()
+
+CO_agg_SAT <- read_excel("States/Colorado/2019 PSAT SAT District and School Achievement Results.xlsx", skip = 10) %>% 
+  clean_names()
+
+CO_principal_sals <- read_excel("States/Colorado/2018-19 Average Principal and Asst Principal Salary by District.xlsx", skip = 3) %>% 
+  clean_names() 
+
+CO_supt_sals <- read_excel("States/Colorado/2018-19 Average Superintendent Salary by District.xlsx", skip = 3) %>% 
+  clean_names()
+
+CO_teacher_sals <- read_excel("States/Colorado/2018-19 Average Teacher Salary by District.xlsx", skip = 3) %>% 
+  clean_names() %>% 
+  rename("average_salary" = "x4")
+
+CO_turnover <- read_excel("States/Colorado/2018-19 Personnel Turnover Rate by District and Position Categories.xlsx", skip = 3) %>% 
+  clean_names()
+
+CO_ratios <- read_excel("States/Colorado/2018-19 Student Teacher Ratios.xlsx", skip = 2) %>% 
+  clean_names() 
+
+CO_teacher_demos <- read_excel("States/Colorado/2018-19 Teachers by District, Race and Gender.xlsx", skip = 3) %>% 
+  clean_names() %>% 
+  View()
+```
+
