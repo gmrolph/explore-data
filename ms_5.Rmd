@@ -13,6 +13,8 @@ library(readxl)
 library(janitor)
 library(ggplot2)
 library(haven)
+library(googlesheets4)
+library(pdftools)
 ```
 The purpose of this project is to analyze the differences in educational outcome between students in different educational circumstances across the country. I plan to include data from as many of the 50 states as I can access, though some states are much more restrictive than others. Below, I have selected some data that was readily available to me on the Massachusetts Department of Education Website. Included is data detailing SAT performance by school district, per pupil expenditures by school district, and staff demographics by school district. 
 ```{r Massachusetts, include = FALSE}
@@ -153,3 +155,16 @@ CO_SAT_sals %>%
   ggplot(aes(average_total_salary, mathematics_mean_score)) +
                          geom_point()
 ```
+I have also included Connecticut's data, though I had less time to explore it than I did with some other states.
+```{r Connecticut, message = FALSE}
+CN_expenditures <- read_sheet("https://docs.google.com/spreadsheets/d/12Hy7Wqal4eh8iaDBaxkWGonB1qiG6rbp0ClFstD4QZw/edit#gid=0", skip = 1) 
+CN_teacher_demos <- read_sheet("https://docs.google.com/spreadsheets/d/1hqd_BlUnN_iimltVFJhQqzvUJ58vcGnv8rdpZcdbZ40/edit#gid=0", skip = 1)
+CN_SAT <- read_sheet("https://docs.google.com/spreadsheets/d/1eEr8Vs80NQBzHORBG7n1kiQEAxMjnu0jdlY-AuJ9UUs/edit#gid=0", skip = 2)
+```
+
+```{r}
+pdf_file <- "https://www.act.org/content/dam/act/unsecured/documents/cccr2017/ACT_2017-Average_Scores_by_State.pdf"
+txt <- pdf_text(pdf_file)
+cat(txt[1])
+```
+
